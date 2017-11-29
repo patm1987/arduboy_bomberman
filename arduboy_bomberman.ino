@@ -2,6 +2,8 @@
 
 #include "Map.h"
 #include "MapAssets.h"
+#include "Player.h"
+#include "PlayerAssets.h"
 
 Arduboy arduboy;
 
@@ -25,6 +27,8 @@ Map::MapConfig mapConfig = {
 
 Map defaultMap(mapConfig);
 
+Player player(aPlayer);
+
 void setup() {
     arduboy.begin();
 }
@@ -33,6 +37,8 @@ void loop() {
     arduboy.clear();
     arduboy.setCursor(0, 0);
     defaultMap.draw(arduboy);
+    player.processInput(arduboy);
+    player.draw(arduboy);
     arduboy.display();
 }
 

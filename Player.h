@@ -12,6 +12,7 @@ public:
 
     explicit Player(const uint8_t* pPlayerImage);
 
+    void processInput(const Arduboy& arduboy);
     void draw(const Arduboy& arduboy) const;
 
     int16_t X;
