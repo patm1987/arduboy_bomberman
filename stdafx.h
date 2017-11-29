@@ -3,5 +3,6 @@
 
 #include <Arduboy.h>
 #include <stdint.h>
+#include <string.h>
 
 #endif//_STDAFX_H
