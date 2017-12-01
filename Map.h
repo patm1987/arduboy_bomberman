@@ -1,8 +1,11 @@
 #ifndef _MAP_H
 #define _MAP_H
 
-class Map {
-public:
+#include "Vec2i.h"
+
+class Map
+{
+  public:
     static const uint8_t EmptyTile = 0;
     static const uint8_t WallTile = 1;
     static const uint8_t PlayerSpawnTile = 2;
@@ -15,19 +18,27 @@ public:
     static const int TileHeight = 8;
     static const int Height = HeightPixels / TileHeight;
 
-    struct MapConfig{
-        const uint8_t* pMapData;
-        const uint8_t* pEmptyTile;
-        const uint8_t* pWallTile;
-        const uint8_t* pPlayerSpawnTile;
+    static constexpr Vec2i mapPositionToPixelPosition(Vec2i mapPosition)
+    {
+        return Vec2i(
+            mapPosition.X * TileWidth,
+            mapPosition.Y * TileHeight);
+    }
+
+    struct MapConfig
+    {
+        const uint8_t *pMapData;
+        const uint8_t *pEmptyTile;
+        const uint8_t *pWallTile;
+        const uint8_t *pPlayerSpawnTile;
     };
 
-    explicit Map(const MapConfig& mapConfig);
+    explicit Map(const MapConfig &mapConfig);
 
-    void draw(const Arduboy& arduboy) const;
+    void draw(const Arduboy &arduboy) const;
 
-private:
+  private:
     MapConfig _mapConfig;
 };
 
-#endif//_MAP_H
+#endif //_MAP_H

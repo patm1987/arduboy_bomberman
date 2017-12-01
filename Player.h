@@ -3,26 +3,30 @@
 
 #include <stdint.h>
 
+#include "MapPosition.h"
+
 class Arduboy;
 
-class Player {
-public:
+class Player
+{
+  public:
     static const uint8_t PlayerWidth = 8;
     static const uint8_t PlayerHeight = 8;
 
-    explicit Player(const uint8_t* pPlayerImage);
+    explicit Player(const uint8_t *pPlayerImage);
 
-    void processInput(const Arduboy& arduboy);
-    void draw(const Arduboy& arduboy) const;
+    void update(const Arduboy &arduboy);
+    void draw(const Arduboy &arduboy) const;
 
-    int16_t X;
-    int16_t Y;
+  private:
+    void processInput(const Arduboy &arduboy);
 
-private:
-    const uint8_t* _pPlayerImage;
+    const uint8_t *_pPlayerImage;
+    MapPosition _position;
 };
 
-inline Player::Player(const uint8_t* pPlayerImage): X(0), Y(0), _pPlayerImage(pPlayerImage) {
+inline Player::Player(const uint8_t *pPlayerImage) : _position(20), _pPlayerImage(pPlayerImage)
+{
 }
 
-#endif//_PLAYER_H
+#endif //_PLAYER_H

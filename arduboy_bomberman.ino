@@ -37,7 +37,7 @@ void loop() {
     arduboy.clear();
     arduboy.setCursor(0, 0);
     defaultMap.draw(arduboy);
-    player.processInput(arduboy);
+    player.update(arduboy);
     player.draw(arduboy);
     arduboy.display();
 }
