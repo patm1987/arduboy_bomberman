@@ -21,6 +21,7 @@ class MapPosition
     int16_t getFramesUntilArrival() const;
 
     void moveTo(const Vec2i &nextTile);
+    void setPosition(const Vec2i &position);
 
   private:
     const int16_t _framesPerTile;
@@ -64,6 +65,13 @@ inline void MapPosition::moveTo(const Vec2i &nextTile)
     _currentTile = _nextTile;
     _nextTile = nextTile;
     _framesUntilArrival = _framesPerTile;
+}
+
+inline void MapPosition::setPosition(const Vec2i &position)
+{
+    _currentTile = position;
+    _nextTile = position;
+    _framesUntilArrival = 0;
 }
 
 #endif //_MAP_POSITION_H

@@ -36,9 +36,16 @@ class Map
     explicit Map(const MapConfig &mapConfig);
 
     void draw(Arduboy &arduboy) const;
+    Vec2i getPlayerSpawnPosition() const;
 
   private:
+    uint8_t getTileAtOffset(ptrdiff_t offset) const;
+
     MapConfig _mapConfig;
 };
+
+inline uint8_t Map::getTileAtOffset(ptrdiff_t offset) const {
+    return pgm_read_word_near(_mapConfig.pMapData + offset);
+}
 
 #endif //_MAP_H

@@ -31,6 +31,7 @@ Player player(aPlayer);
 
 void setup() {
     arduboy.begin();
+    player.setPosition(defaultMap.getPlayerSpawnPosition());
 }
 
 void loop() {
