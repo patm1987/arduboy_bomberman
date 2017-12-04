@@ -35,15 +35,16 @@ void Map::draw(Arduboy &arduboy) const
     }
 }
 
-Vec2i Map::getPlayerSpawnPosition() const 
+Vec2i Map::getPlayerSpawnPosition() const
 {
     Vec2i position;
     int offset = 0;
-    for(;position.Y < Height; position.Y++) 
+    for (position.Y = 0; position.Y < Height; position.Y++)
     {
-        for(;position.X < Width; position.X++, offset++)
+        for (position.X = 0; position.X < Width; position.X++, offset++)
         {
-            if(getTileAtOffset(offset) == PlayerSpawnTile) {
+            if (getTileAtOffset(offset) == PlayerSpawnTile)
+            {
                 return position;
             }
         }

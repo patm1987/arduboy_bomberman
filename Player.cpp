@@ -38,6 +38,6 @@ void Player::update(Arduboy &arduboy)
 void Player::draw(Arduboy &arduboy) const
 {
     Vec2i pixelPosition = _position.getPixelPosition();
-    arduboy.drawRect(pixelPosition.X, pixelPosition.Y, PlayerWidth, PlayerHeight, BLACK);
+    arduboy.fillRect(pixelPosition.X, pixelPosition.Y, PlayerWidth, PlayerHeight, BLACK);
     arduboy.drawBitmap(pixelPosition.X, pixelPosition.Y, _pPlayerImage, PlayerWidth, PlayerHeight, WHITE);
 }
