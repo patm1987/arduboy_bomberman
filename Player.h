@@ -7,20 +7,48 @@
 
 class Arduboy;
 
+/*!
+ * Class representing the player in Bomberman
+ */
 class Player
 {
 public:
+  //! the width of the player in pixels
   static const uint8_t PlayerWidth = 8;
+
+  //! the height of the player in pixels
   static const uint8_t PlayerHeight = 8;
 
+  /*!
+   * Constructs the player from an image and places him in the given Map
+   * @param pPlayerImage a pointer to the memory used to draw the player
+   * @param pMap the map the player will belong to
+   */
   Player(const uint8_t *pPlayerImage, Map *pMap);
 
+  /*!
+   * Ticks the player by a single frame
+   * @param arduboy the instance of the Arduboy library
+   */
   void update(Arduboy &arduboy);
+
+  /*!
+   * Draws the player to the screen
+   * @param arduboy the arduboy library (to help draw)
+   */
   void draw(Arduboy &arduboy) const;
 
+  /*!
+   * Instantly sets the player to the given position, cancelling animations
+   * @param position the position to move to
+   */
   void setPosition(const Vec2i &position);
 
 private:
+  /*!
+   * Processes the player input to move the player
+   * @param arduboy the arduboy from which we'll process input
+   */
   void processInput(Arduboy &arduboy);
 
   const uint8_t *_pPlayerImage;

@@ -3,6 +3,9 @@
 
 #include "stdafx.h"
 
+/*!
+ * Represents a 2 dimensional vector backed by an integer
+ */
 class Vec2i
 {
   public:

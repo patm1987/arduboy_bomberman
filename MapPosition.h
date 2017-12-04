@@ -7,6 +7,9 @@
 
 class Map;
 
+/*!
+ * Represents the position of an object on the map and facilitates moving it
+ */
 class MapPosition
 {
   public:
