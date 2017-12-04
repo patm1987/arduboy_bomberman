@@ -7,7 +7,7 @@ Map::Map(const MapConfig &mapConfig)
     memcpy(&_mapConfig, &mapConfig, sizeof(MapConfig));
 }
 
-void Map::draw(const Arduboy &arduboy) const
+void Map::draw(Arduboy &arduboy) const
 {
     int mapIndex = 0;
     arduboy.drawRect(0, 0, WidthPixels, HeightPixels, BLACK);
@@ -32,6 +32,9 @@ void Map::draw(const Arduboy &arduboy) const
             }
             arduboy.drawBitmap(x, y, pBitmap, TileWidth, TileHeight, WHITE);
         }
-        Serial.println();
     }
+}
+
+Vec2i Map::getStartTile() const
+{
 }

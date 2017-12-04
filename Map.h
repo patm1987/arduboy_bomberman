@@ -35,7 +35,7 @@ class Map
 
     explicit Map(const MapConfig &mapConfig);
 
-    void draw(const Arduboy &arduboy) const;
+    void draw(Arduboy &arduboy) const;
 
   private:
     MapConfig _mapConfig;

@@ -15,11 +15,11 @@ class Player
 
     explicit Player(const uint8_t *pPlayerImage);
 
-    void update(const Arduboy &arduboy);
-    void draw(const Arduboy &arduboy) const;
+    void update(Arduboy &arduboy);
+    void draw(Arduboy &arduboy) const;
 
   private:
-    void processInput(const Arduboy &arduboy);
+    void processInput(Arduboy &arduboy);
 
     const uint8_t *_pPlayerImage;
     MapPosition _position;

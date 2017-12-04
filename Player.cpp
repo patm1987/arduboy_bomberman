@@ -4,7 +4,7 @@
 
 #include "Vec2i.h"
 
-void Player::processInput(const Arduboy &arduboy)
+void Player::processInput(Arduboy &arduboy)
 {
     Vec2i nextPosition = _position.getPosition();
     if (arduboy.pressed(UP_BUTTON))
@@ -26,7 +26,7 @@ void Player::processInput(const Arduboy &arduboy)
     _position.moveTo(nextPosition);
 }
 
-void Player::update(const Arduboy &arduboy)
+void Player::update(Arduboy &arduboy)
 {
     _position.update();
     if (_position.getFramesUntilArrival() == 0)
@@ -35,7 +35,7 @@ void Player::update(const Arduboy &arduboy)
     }
 }
 
-void Player::draw(const Arduboy &arduboy) const
+void Player::draw(Arduboy &arduboy) const
 {
     Vec2i pixelPosition = _position.getPixelPosition();
     arduboy.drawRect(pixelPosition.X, pixelPosition.Y, PlayerWidth, PlayerHeight, BLACK);
