@@ -37,6 +37,7 @@ class Map
 
     void draw(Arduboy &arduboy) const;
     Vec2i getPlayerSpawnPosition() const;
+    bool isSpaceEmpty(const Vec2i &tilePosition) const;
 
   private:
     uint8_t getTileAtOffset(ptrdiff_t offset) const;
@@ -44,8 +45,15 @@ class Map
     MapConfig _mapConfig;
 };
 
-inline uint8_t Map::getTileAtOffset(ptrdiff_t offset) const {
+inline uint8_t Map::getTileAtOffset(ptrdiff_t offset) const
+{
     return pgm_read_word_near(_mapConfig.pMapData + offset);
+}
+
+inline bool Map::isSpaceEmpty(const Vec2i &tilePosition) const
+{
+    uint8_t tile = getTileAtOffset(tilePosition.Y * Width + tilePosition.X);
+    return tile != WallTile;
 }
 
 #endif //_MAP_H

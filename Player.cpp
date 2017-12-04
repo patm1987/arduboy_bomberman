@@ -2,24 +2,28 @@
 
 #include "Player.h"
 
+#include <assert.h>
+#include "Map.h"
 #include "Vec2i.h"
 
 void Player::processInput(Arduboy &arduboy)
 {
+    assert(_pMap);
+
     Vec2i nextPosition = _position.getPosition();
-    if (arduboy.pressed(UP_BUTTON))
+    if (_pMap->isSpaceEmpty(Vec2i(nextPosition.X, nextPosition.Y - 1)) && arduboy.pressed(UP_BUTTON))
     {
         nextPosition.Y -= 1;
     }
-    if (arduboy.pressed(DOWN_BUTTON))
+    else if (_pMap->isSpaceEmpty(Vec2i(nextPosition.X, nextPosition.Y + 1)) && arduboy.pressed(DOWN_BUTTON))
     {
         nextPosition.Y += 1;
     }
-    if (arduboy.pressed(LEFT_BUTTON))
+    else if (_pMap->isSpaceEmpty(Vec2i(nextPosition.X - 1, nextPosition.Y)) && arduboy.pressed(LEFT_BUTTON))
     {
         nextPosition.X -= 1;
     }
-    if (arduboy.pressed(RIGHT_BUTTON))
+    else if (_pMap->isSpaceEmpty(Vec2i(nextPosition.X + 1, nextPosition.Y)) && arduboy.pressed(RIGHT_BUTTON))
     {
         nextPosition.X += 1;
     }

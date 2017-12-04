@@ -27,7 +27,7 @@ Map::MapConfig mapConfig = {
 
 Map defaultMap(mapConfig);
 
-Player player(aPlayer);
+Player player(aPlayer, &defaultMap);
 
 void setup() {
     arduboy.begin();

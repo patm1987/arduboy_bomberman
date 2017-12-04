@@ -9,31 +9,35 @@ class Arduboy;
 
 class Player
 {
-  public:
-    static const uint8_t PlayerWidth = 8;
-    static const uint8_t PlayerHeight = 8;
+public:
+  static const uint8_t PlayerWidth = 8;
+  static const uint8_t PlayerHeight = 8;
 
-    explicit Player(const uint8_t *pPlayerImage);
+  Player(const uint8_t *pPlayerImage, Map *pMap);
 
-    void update(Arduboy &arduboy);
-    void draw(Arduboy &arduboy) const;
+  void update(Arduboy &arduboy);
+  void draw(Arduboy &arduboy) const;
 
-    void setPosition(const Vec2i &position);
+  void setPosition(const Vec2i &position);
 
-  private:
-    void processInput(Arduboy &arduboy);
+private:
+  void processInput(Arduboy &arduboy);
 
-    const uint8_t *_pPlayerImage;
-    MapPosition _position;
+  const uint8_t *_pPlayerImage;
+  MapPosition _position;
+  Map *_pMap;
 };
 
-inline Player::Player(const uint8_t *pPlayerImage) : _position(20), _pPlayerImage(pPlayerImage)
+inline Player::Player(const uint8_t *pPlayerImage, Map *pMap)
+    : _position(20),
+      _pPlayerImage(pPlayerImage),
+      _pMap(pMap)
 {
 }
 
-inline void Player::setPosition(const Vec2i& position)
+inline void Player::setPosition(const Vec2i &position)
 {
-    _position.setPosition(position);
+  _position.setPosition(position);
 }
 
 #endif //_PLAYER_H
