@@ -15,7 +15,7 @@ void Map::draw(const Arduboy &arduboy) const
     {
         for (int x = 0; x < WidthPixels; x += TileWidth, mapIndex++)
         {
-            uint8_t tile = pgm_read_word_near(_mapConfig.pMapData + mapIndex);
+            uint8_t tile = getTileAtOffset(mapIndex);
             const uint8_t *pBitmap;
             switch (tile)
             {
@@ -34,4 +34,20 @@ void Map::draw(const Arduboy &arduboy) const
         }
         Serial.println();
     }
+}
+
+Vec2i Map::getPlayerSpawnPosition() const 
+{
+    Vec2i position;
+    int offset = 0;
+    for(;position.Y < Height; position.Y++) 
+    {
+        for(;position.X < Width; position.X++, offset++)
+        {
+            if(getTileAtOffset(offset) == PlayerSpawnTile) {
+                return position;
+            }
+        }
+    }
+    return Vec2i();
 }
