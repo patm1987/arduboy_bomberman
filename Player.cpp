@@ -2,9 +2,10 @@
 
 #include "Player.h"
 
-#include <assert.h>
 #include "Map.h"
+#include "PlayerAssets.h"
 #include "Vec2i.h"
+#include <assert.h>
 
 void Player::processInput(Arduboy &arduboy)
 {
@@ -43,6 +44,6 @@ void Player::update(Arduboy &arduboy)
 void Player::draw(Arduboy &arduboy) const
 {
     Vec2i pixelPosition = _position.getPixelPosition();
-    arduboy.fillRect(pixelPosition.X, pixelPosition.Y, PlayerWidth, PlayerHeight, BLACK);
-    arduboy.drawBitmap(pixelPosition.X, pixelPosition.Y, _pPlayerImage, PlayerWidth, PlayerHeight, WHITE);
+    arduboy.fillRect(pixelPosition.X, pixelPosition.Y, SpriteWidth, SpriteHeight, BLACK);
+    arduboy.drawBitmap(pixelPosition.X, pixelPosition.Y, aPlayer, SpriteWidth, SpriteHeight, WHITE);
 }
