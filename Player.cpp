@@ -27,6 +27,7 @@ void Player::processInput(Arduboy &arduboy)
     {
         nextPosition.X += 1;
     }
+
     _position.moveTo(nextPosition);
 }
 

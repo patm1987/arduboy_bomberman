@@ -1,45 +1,73 @@
 #include "stdafx.h"
 
+#include "Bomb.h"
 #include "Map.h"
 #include "MapAssets.h"
 #include "Player.h"
 #include "PlayerAssets.h"
+#include "UnorderedFixedSizeList.h"
 
 Arduboy arduboy;
 
-const uint8_t aMapData[] PROGMEM = {
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-    1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1,
-    1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1,
-    1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1,
-    1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1,
-    1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-};
+const int BombTime = 120;
 
 Map::MapConfig mapConfig = {
     aMapData,
     aFloorTile,
     aWallTile,
-    aSpawnTile
-};
+    aSpawnTile};
 
 Map defaultMap(mapConfig);
 
 Player player(aPlayer, &defaultMap);
 
-void setup() {
+UnorderedFixedSizeList<Bomb> bombs;
+
+bool aWasPressed = false;
+
+void setup()
+{
     arduboy.begin();
     player.setPosition(defaultMap.getPlayerSpawnPosition());
 }
 
-void loop() {
+void loop()
+{
     arduboy.clear();
     arduboy.setCursor(0, 0);
     defaultMap.draw(arduboy);
     player.update(arduboy);
+
+    if (arduboy.pressed(A_BUTTON) && !aWasPressed)
+    {
+        aWasPressed = true;
+        bombs.add(Bomb(BombTime, player.getPosition()));
+    }
+    else if (!arduboy.pressed(A_BUTTON) && aWasPressed)
+    {
+        aWasPressed = false;
+    }
+
+    for (auto &bomb : bombs)
+    {
+        bomb.update();
+    }
+    for (int i = 0; i < bombs.length();)
+    {
+        if (bombs[i].getFramesRemaining() <= 0)
+        {
+            bombs.remove(i);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    for (auto &bomb : bombs)
+    {
+        bomb.draw(arduboy);
+    }
+
     player.draw(arduboy);
     arduboy.display();
 }
-

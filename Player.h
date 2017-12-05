@@ -44,6 +44,11 @@ public:
    */
   void setPosition(const Vec2i &position);
 
+  /*!
+   * Retrieves the position of the player
+   */
+  const Vec2i &getPosition() const;
+
 private:
   /*!
    * Processes the player input to move the player
@@ -66,6 +71,11 @@ inline Player::Player(const uint8_t *pPlayerImage, Map *pMap)
 inline void Player::setPosition(const Vec2i &position)
 {
   _position.setPosition(position);
+}
+
+inline const Vec2i &Player::getPosition() const
+{
+  return _position.getPosition();;
 }
 
 #endif //_PLAYER_H

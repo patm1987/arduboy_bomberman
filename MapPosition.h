@@ -16,6 +16,7 @@ class MapPosition
     MapPosition(int16_t framesPerTile = 0);
     MapPosition(const Vec2i &tilePosition, int16_t framesPerTile = 0);
     MapPosition(const MapPosition &other);
+    MapPosition &operator=(const MapPosition &other);
 
     void update();
     Vec2i getPixelPosition() const;
@@ -27,10 +28,10 @@ class MapPosition
     void setPosition(const Vec2i &position);
 
   private:
-    const int16_t _framesPerTile;
-    int16_t _framesUntilArrival;
-    Vec2i _currentTile;
-    Vec2i _nextTile;
+    int16_t _framesPerTile;      //!< the number of frames it takes to go from one tile to another
+    int16_t _framesUntilArrival; //!< countdown until we're on the next tile.
+    Vec2i _currentTile;          //!< the current tile
+    Vec2i _nextTile;             //!< the tile we're moving to
 };
 
 inline MapPosition::MapPosition(int16_t framesPerTile)
@@ -48,6 +49,14 @@ inline MapPosition::MapPosition(const MapPosition &other)
       _framesUntilArrival(other._framesUntilArrival),
       _currentTile(other._currentTile),
       _nextTile(other._nextTile) {}
+
+inline MapPosition &MapPosition::operator=(const MapPosition &other)
+{
+    _framesPerTile = other._framesPerTile;
+    _framesUntilArrival = other._framesUntilArrival;
+    _currentTile = other._currentTile;
+    _nextTile = other._nextTile;
+}
 
 inline const Vec2i &MapPosition::getPosition() const
 {
