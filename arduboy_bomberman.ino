@@ -1,15 +1,15 @@
 #include "stdafx.h"
 
 #include "Bomb.h"
+#include "Constants.h"
+#include "ExplosionManager.h"
 #include "Map.h"
 #include "MapAssets.h"
 #include "Player.h"
-#include "PlayerAssets.h"
+#include "SpriteAssets.h"
 #include "UnorderedFixedSizeList.h"
 
 Arduboy arduboy;
-
-const int BombTime = 120;
 
 Map::MapConfig mapConfig = {
     aMapData,
@@ -21,9 +21,12 @@ Map defaultMap(mapConfig);
 
 Player player(aPlayer, &defaultMap);
 
-UnorderedFixedSizeList<Bomb> bombs;
+// TODO: these should be circular lists
+UnorderedFixedSizeList<Bomb, BombCount> bombs;
 
-bool aWasPressed = false;
+ExplosionManager explosionManager(defaultMap);
+
+bool bWasPressed = false;
 
 void setup()
 {
@@ -38,14 +41,14 @@ void loop()
     defaultMap.draw(arduboy);
     player.update(arduboy);
 
-    if (arduboy.pressed(A_BUTTON) && !aWasPressed)
+    if (arduboy.pressed(B_BUTTON) && !bWasPressed)
     {
-        aWasPressed = true;
+        bWasPressed = true;
         bombs.add(Bomb(BombTime, player.getPosition()));
     }
-    else if (!arduboy.pressed(A_BUTTON) && aWasPressed)
+    else if (!arduboy.pressed(B_BUTTON) && bWasPressed)
     {
-        aWasPressed = false;
+        bWasPressed = false;
     }
 
     for (auto &bomb : bombs)
@@ -56,6 +59,7 @@ void loop()
     {
         if (bombs[i].getFramesRemaining() <= 0)
         {
+            explosionManager.addExplosion(bombs[i].getPosition());
             bombs.remove(i);
         }
         else
@@ -67,6 +71,9 @@ void loop()
     {
         bomb.draw(arduboy);
     }
+
+    explosionManager.update();
+    explosionManager.draw(arduboy);
 
     player.draw(arduboy);
     arduboy.display();

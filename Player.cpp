@@ -3,7 +3,7 @@
 #include "Player.h"
 
 #include "Map.h"
-#include "PlayerAssets.h"
+#include "SpriteAssets.h"
 #include "Vec2i.h"
 #include <assert.h>
 

@@ -14,7 +14,7 @@ class MapPosition
 {
   public:
     MapPosition(int16_t framesPerTile = 0);
-    MapPosition(const Vec2i &tilePosition, int16_t framesPerTile = 0);
+    explicit MapPosition(const Vec2i &tilePosition, int16_t framesPerTile = 0);
     MapPosition(const MapPosition &other);
     MapPosition &operator=(const MapPosition &other);
 

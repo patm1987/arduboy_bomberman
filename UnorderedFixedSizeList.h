@@ -1,6 +1,8 @@
 #ifndef _UNORDERED_FIXED_SIZE_LIST_H
 #define _UNORDERED_FIXED_SIZE_LIST_H
 
+#include <stddef.h>
+
 template <typename T, int CAPACITY = 8>
 class UnorderedFixedSizeList
 {
@@ -12,6 +14,8 @@ class UnorderedFixedSizeList
 
     T *begin();
     T *end();
+    const T *begin() const;
+    const T *end() const;
 
   private:
     size_t _length;
@@ -66,6 +70,18 @@ T *UnorderedFixedSizeList<T, CAPACITY>::begin()
 
 template <typename T, int CAPACITY>
 T *UnorderedFixedSizeList<T, CAPACITY>::end()
+{
+    return _elements + _length;
+}
+
+template <typename T, int CAPACITY>
+const T *UnorderedFixedSizeList<T, CAPACITY>::begin() const
+{
+    return _elements;
+}
+
+template <typename T, int CAPACITY>
+const T *UnorderedFixedSizeList<T, CAPACITY>::end() const
 {
     return _elements + _length;
 }
