@@ -8,6 +8,58 @@
 void ExplosionManager::addExplosion(const Vec2i &position)
 {
     _explosionList.add((Explosion){position, ExplosionTime});
+    // explode up
+    for (int i = 0; i < ExplosionDistancePerBomb; i++)
+    {
+        Vec2i testSpace = position - Vec2i(0, i + 1);
+        if (_map.isSpaceEmpty(testSpace))
+        {
+            _explosionList.add((Explosion){testSpace, ExplosionTime});
+        }
+        else
+        {
+            break;
+        }
+    }
+    // explode down
+    for (int i = 0; i < ExplosionDistancePerBomb; i++)
+    {
+        Vec2i testSpace = position + Vec2i(0, i + 1);
+        if (_map.isSpaceEmpty(testSpace))
+        {
+            _explosionList.add((Explosion){testSpace, ExplosionTime});
+        }
+        else
+        {
+            break;
+        }
+    }
+    // explode left
+    for (int i = 0; i < ExplosionDistancePerBomb; i++)
+    {
+        Vec2i testSpace = position - Vec2i(i + 1, 0);
+        if (_map.isSpaceEmpty(testSpace))
+        {
+            _explosionList.add((Explosion){testSpace, ExplosionTime});
+        }
+        else
+        {
+            break;
+        }
+    }
+    // explode right
+    for (int i = 0; i < ExplosionDistancePerBomb; i++)
+    {
+        Vec2i testSpace = position - Vec2i(i + 1, 0);
+        if (_map.isSpaceEmpty(testSpace))
+        {
+            _explosionList.add((Explosion){testSpace, ExplosionTime});
+        }
+        else
+        {
+            break;
+        }
+    }
 }
 
 void ExplosionManager::update()

@@ -102,6 +102,10 @@ inline uint8_t Map::getTileAtOffset(ptrdiff_t offset) const
 
 inline bool Map::isSpaceEmpty(const Vec2i &tilePosition) const
 {
+    if (tilePosition.X < 0 || tilePosition.Y < 0 || tilePosition.X >= Width || tilePosition.Y >= Height)
+    {
+        return false;
+    }
     uint8_t tile = getTileAtOffset(tilePosition.Y * Width + tilePosition.X);
     return tile != WallTile;
 }
