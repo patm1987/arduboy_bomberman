@@ -1,5 +1,6 @@
 {
     "board": "arduino:avr:leonardo",
     "port": "COM3",
-    "sketch": "arduboy_bomberman.ino"
+    "sketch": "arduboy_bomberman.ino",
+    "output": "bin/"
 }

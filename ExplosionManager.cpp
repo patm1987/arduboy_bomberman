@@ -50,7 +50,7 @@ void ExplosionManager::addExplosion(const Vec2i &position)
     // explode right
     for (int i = 0; i < ExplosionDistancePerBomb; i++)
     {
-        Vec2i testSpace = position - Vec2i(i + 1, 0);
+        Vec2i testSpace = position + Vec2i(i + 1, 0);
         if (_map.isSpaceEmpty(testSpace))
         {
             _explosionList.add((Explosion){testSpace, ExplosionTime});
